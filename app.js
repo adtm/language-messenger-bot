@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 /*
  * Starter Project for Messenger Platform Quick Start Tutorial
  *
