@@ -46,7 +46,16 @@ app.post('/webhook', (req, res) => {
       
       // Check if the event is a message or postback and
   // pass the event to the appropriate handler function
-  if (webhook_event.message) {
+  if (webhook_event.message) { 
+
+    /*
+      here will be printed the NLP if the message 
+      is not an echo from the "Messenger" bot
+    */
+    if (!webhook_event.message.is_echo) {
+      console.log(JSON.stringify(webhook_event.message.nlp))
+    }
+
     handleMessage(sender_psid, webhook_event.message);        
   } else if (webhook_event.postback) {
     handlePostback(sender_psid, webhook_event.postback);
@@ -101,7 +110,7 @@ function handleMessage(sender_psid, received_message) {
 
     // Create the payload for a basic text message
     response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image! u hobo!`
+      "text": `You sent the message: "${received_message.text}". Gay!`
     }
   }  else if (received_message.attachments) {
   
