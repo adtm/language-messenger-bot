@@ -24,3 +24,18 @@ export function getPhrases() {
 
   return phrases;
 }
+
+export const getScenarios = () => ([
+  {
+    title: "Restaurant",
+    subtitle: "Learn to order dat pizza!"
+  },
+  {
+    title: "Job Interview",
+    subtitle: "Finally work at Facebook!"
+  },
+  {
+    title: "The date",
+    subtitle: "Get the woman you never could!"
+  }
+])

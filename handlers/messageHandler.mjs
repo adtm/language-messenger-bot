@@ -1,5 +1,5 @@
 import { callSendAPI } from "../senderService";
-import { getPhrases } from "../phraseService";
+import { getPhrases, getScenarios } from "../phraseService";
 // Handles messages events
 export function handleMessage(sender_psid, received_message) {
   let response;
@@ -10,29 +10,41 @@ export function handleMessage(sender_psid, received_message) {
 
     switch (payload) {
       case 'learn_choose':
-        console.log(payload)
-        response = {
-          attachment: {
-            type: "template",
-            payload: {
-              template_type: "list",
-              top_element_style: "compact",
-              elements: getPhrases()
-                .map(p => ({
-                  title: p.name,
-                  subtitle: p.area
-                }))
-                .slice(0, 4),
-              buttons: [
-                {
-                  title: "View More",
-                  type: "postback",
-                  payload: "payload"
-                }
-              ]
+        if (text === "Scenarios") {
+          response = {
+            attachment: {
+              type: "template",
+              payload: {
+                template_type: "list",
+                top_element_style: "compact",
+                elements: getScenarios().map(scenario => ({ ...scenario }))
+              }
             }
-          }
-        };
+          };
+        } else if (text === "Popular Phrases") {
+          response = {
+            attachment: {
+              type: "template",
+              payload: {
+                template_type: "list",
+                top_element_style: "compact",
+                elements: getPhrases()
+                  .map(p => ({
+                    title: p.name,
+                    subtitle: p.area
+                  }))
+                  .slice(0, 4),
+                buttons: [
+                  {
+                    title: "View More",
+                    type: "postback",
+                    payload: "payload"
+                  }
+                ]
+              }
+            }
+          };
+        }
         break;
       case 'lang_choose':
         response = {
