@@ -19,7 +19,7 @@ app.post("/webhook", (req, res) => {
   // Check the webhook event is from a Page subscription
   if (body.object === "page") {
     // Iterate over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
+    body.entry.forEach(function (entry: any) {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
