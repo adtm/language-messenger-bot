@@ -9,6 +9,10 @@
 Heroku link: https://messenger-weboock.herokuapp.com/webhook
 Verification token: random123
 
+### Connecting to dialogflow
+
+To connect to dialogFlow agent you need to have security certificate and point to it in your environment. You also need a project id under which the agent runs.
+
 ### NLP
 
 To enable NLP in Facebook, you must go to Facebook Developer page and to "Messenger Settings", by scrolling to the bottom under the "Built-In-NLP" decide a page from which you will link your page.

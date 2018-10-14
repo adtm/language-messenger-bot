@@ -1,10 +1,11 @@
 import { getPhrases, getScenarios } from "../phraseService";
+import { CHOOSE_METHOD, CHOOSE_LANGUAGE, CHOOSE_SCENARIO } from "../consts/quick-replies.const";
 
+//Payload can be intent name
 export function handleQuickReply(payload: String, text: String) {
 
     switch (payload) {
-
-        case 'learn_choose':
+        case CHOOSE_METHOD:
             if (text === "Scenarios") {
                 return {
                     attachment: {
@@ -41,7 +42,25 @@ export function handleQuickReply(payload: String, text: String) {
                 };
             }
             break;
-        case 'lang_choose':
+        case CHOOSE_LANGUAGE:
+            return {
+                "text": "Choose what you want to learn!",
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "Scenarios",
+                        "payload": "learn_choose" // <-- We choose by the payload in the if quick_reply
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Popular Phrases",
+                        "payload": "learn_choose"
+                    },
+                ]
+            }
+            break;
+
+        case CHOOSE_SCENARIO:
             return {
                 "text": "Choose what you want to learn!",
                 "quick_replies": [
