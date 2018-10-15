@@ -1,5 +1,5 @@
 import { SCENARIO } from "../consts/intent.const";
-import { CHOOSE_SCENARIO } from "../consts/quick-replies.const";
+import { CHOOSE_SCENARIO, INTERVIEW_CHOISE, RESTAURANT_BOOKING } from "../consts/quick-replies.const";
 
 export default class IntentHandler {
 
@@ -15,12 +15,12 @@ export default class IntentHandler {
                     "quick_replies": [
                         {
                             "content_type": "text",
-                            "title": "Restaurant booking",
+                            "title": RESTAURANT_BOOKING,
                             "payload": CHOOSE_SCENARIO
                         },
                         {
                             "content_type": "text",
-                            "title": "Interview",
+                            "title": INTERVIEW_CHOISE,
                             "payload": CHOOSE_SCENARIO
                         },
                     ]

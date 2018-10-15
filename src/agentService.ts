@@ -1,18 +1,24 @@
-import { AnyTxtRecord } from "dns";
+import { Agent, MAIN_AGENT } from "./consts/agents.const";
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow');
 
 export default class AgentService {
 
-    private projectId = process.env.GOOGLE_PROJECT_ID;
-    private sessionId = 'quickstart-session-id';
+    private projectId: string;
+    private sessionId: string;
     private languageCode = 'en-US';
     private sessionPath;
+    private sessionClient: any;
 
-    private sessionClient = new dialogflow.SessionsClient(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-    constructor() {
+
+    //TODO: Stack sessions and use them later.
+    //TODO: Handle multiple users
+    constructor(agent: Agent = MAIN_AGENT) {
+        this.projectId = agent.project_id;
+        this.sessionClient = new dialogflow.SessionsClient({ keyFilename: agent.secret });
+        this.sessionId = Math.random().toString(36).substring(7);
         this.sessionPath = this.sessionClient.sessionPath(this.projectId, this.sessionId);
     }
 
@@ -51,5 +57,12 @@ export default class AgentService {
             .catch(err => {
                 console.error('ERROR:', err);
             });
+    }
+
+    changeAgent(agent: Agent) {
+        this.projectId = agent.project_id;
+        this.sessionClient = new dialogflow.SessionsClient({ keyFilename: agent.secret });
+        this.sessionId = Math.random().toString(36).substring(7);
+        this.sessionPath = this.sessionClient.sessionPath(this.projectId, this.sessionId);
     }
 }
