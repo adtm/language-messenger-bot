@@ -1,36 +1,36 @@
 {
-  "name": "messenger-quick-start",
-  "version": "1.0.0",
-  "description": "An example webhook for Facebook Messenger quick start tutorial.",
-  "main": "app.js",
-  "scripts": {
-    "start": "node dist/app.js",
-    "dev": "nodemon dist/app.js",
-    "test": "mocha tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fbsamples/messenger-platform-samples.git"
-  },
-  "author": "Facebook",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/body-parser": "^1.16.8",
-    "@types/dialogflow": "^0.6.3",
-    "@types/dotenv": "^4.0.2",
-    "@types/express": "^4.11.1",
-    "@types/request": "^2.47.0",
-    "nodemon": "^1.17.5",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.9.1",
-    "typescript": "^3.0.1"
-  },
-  "dependencies": {
-    "body-parser": "^1.15.0",
-    "dialogflow": "^0.6.0",
-    "dotenv": "^6.0.0",
-    "express": "^4.13.4",
-    "mocha": "^5.2.0",
-    "request": "^2.72.0"
-  }
+    "name": "messenger-quick-start",
+    "version": "1.0.0",
+    "description": "An example webhook for Facebook Messenger quick start tutorial.",
+    "main": "app.js",
+    "scripts": {
+        "start": "node dist/app.js",
+        "dev": "nodemon dist/app.js",
+        "test": "mocha tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fbsamples/messenger-platform-samples.git"
+    },
+    "author": "Facebook",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/body-parser": "^1.16.8",
+        "@types/dialogflow": "^0.6.3",
+        "@types/dotenv": "^4.0.2",
+        "@types/express": "^4.11.1",
+        "@types/request": "^2.47.0",
+        "nodemon": "^1.17.5",
+        "ts-node": "^7.0.1",
+        "tslint": "^5.9.1",
+        "typescript": "^3.0.1"
+    },
+    "dependencies": {
+        "body-parser": "^1.15.0",
+        "dialogflow": "^0.6.0",
+        "dotenv": "^6.0.0",
+        "express": "^4.13.4",
+        "mocha": "^5.2.0",
+        "request": "^2.72.0"
+    }
 }
