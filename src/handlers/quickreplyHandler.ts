@@ -60,6 +60,7 @@ export function handleQuickReply(payload: String, text: String) {
             }
             break;
 
+        //TODO: implement mechanism which changes the 
         case CHOOSE_SCENARIO:
             return {
                 "text": "Choose what you want to learn!",
