@@ -1,4 +1,4 @@
-import { Agent, MAIN_AGENT, INTERVIEW_AGENT } from './consts/agents.const'
+import { Agent, MAIN_AGENT } from './consts/agents.const'
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow')
@@ -12,7 +12,7 @@ export default class AgentService {
 
     //TODO: Stack sessions and use them later.
     //TODO: Handle multiple users
-    constructor(agent: Agent = INTERVIEW_AGENT) {
+    constructor(agent: Agent = MAIN_AGENT) {
         this.projectId = agent.project_id
         this.sessionClient = new dialogflow.SessionsClient({
             keyFilename: agent.secret,
