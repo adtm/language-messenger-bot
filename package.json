@@ -4,8 +4,8 @@
     "description": "An example webhook for Facebook Messenger quick start tutorial.",
     "main": "app.js",
     "scripts": {
-        "build": "tsc",
-        "start": "yarn build && node dist/app.js",
+        "build": "ts-node --project tsconfig.json src/app.ts",
+        "start": "node dist/app.js",
         "dev": "nodemon dist/app.js",
         "test": "mocha tests"
     },

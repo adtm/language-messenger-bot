@@ -4,8 +4,6 @@ import body_parser from 'body-parser'
 import { handleMessage } from './handlers/messageHandler'
 import { handlePostback } from './handlers/postbackHandler'
 
-;('use strict')
-
 const app = express().use(body_parser.json()) // creates express http server
 
 // Sets server port and logs message on success
