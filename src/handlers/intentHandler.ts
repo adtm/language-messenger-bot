@@ -1,12 +1,8 @@
-import { SCENARIO } from '../consts/intent.const'
-import {
-    CHOOSE_SCENARIO,
-    INTERVIEW_CHOISE,
-    RESTAURANT_BOOKING,
-} from '../consts/quick-replies.const'
+import { SCENARIO } from '../consts/intent.const';
+import { CHOOSE_SCENARIO, COFFEE_CHOISE } from '../consts/quick-replies.const';
 
 export default class IntentHandler {
-    constructor() {}
+    constructor() { }
 
     handleIntent(payload) {
         let response
@@ -17,7 +13,7 @@ export default class IntentHandler {
                 quick_replies: [
                     {
                         content_type: 'text',
-                        title: INTERVIEW_CHOISE,
+                        title: COFFEE_CHOISE,
                         payload: CHOOSE_SCENARIO,
                     },
                 ],
