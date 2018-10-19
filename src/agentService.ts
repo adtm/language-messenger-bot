@@ -1,7 +1,32 @@
 import { Agent, MAIN_AGENT } from './consts/agents.const'
+import { WELCOME_EVENT } from './consts/events.const';
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow')
+
+interface Request {
+    session: any,
+    queryInput
+}
+
+interface TextRequest extends Request {
+    queryInput: {
+        text: {
+            text: string,
+            languageCode
+        }
+    }
+}
+
+interface EventRequest extends Request {
+    queryInput: {
+        event: {
+            name: string,
+            languageCode
+        }
+    }
+}
+
 
 export default class AgentService {
     private projectId: string
@@ -27,7 +52,7 @@ export default class AgentService {
     }
 
     interactWithAgent(requestText) {
-        const request = {
+        const request: TextRequest = {
             session: this.sessionPath,
             queryInput: {
                 text: {
@@ -39,26 +64,26 @@ export default class AgentService {
 
         return this.sessionClient
             .detectIntent(request)
-            .then(responses => {
-                const result = responses[0].queryResult
-                const isEndOfConversation = this.isEndOfConversation(result)
-
-                if (result.intent) {
-                    console.log(`  Intent: ${result.intent.displayName}`)
-
-                    return {
-                        isEndOfConversation,
-                        intent: result.intent.displayName,
-                        response: result.fulfillmentText,
-                    }
-                } else {
-                    console.log(`  No intent matched.`)
-
-                    return {
-                        response: result.fulfillmentText,
-                    }
-                }
+            .then(responses => this.handleResponse(responses))
+            .catch(err => {
+                console.error('ERROR:', err)
             })
+    }
+
+    sendEvent(eventName = WELCOME_EVENT) {
+        const request: EventRequest = {
+            session: this.sessionPath,
+            queryInput: {
+                event: {
+                    name: eventName,
+                    languageCode: this.languageCode,
+                },
+            },
+        };
+
+        return this.sessionClient
+            .detectIntent(request)
+            .then(responses => this.handleResponse(responses))
             .catch(err => {
                 console.error('ERROR:', err)
             })
@@ -78,10 +103,30 @@ export default class AgentService {
         )
     }
 
+    private handleResponse(responses) {
+        const result = responses[0].queryResult
+
+        const isEndOfConversation = this.isEndOfConversation(result)
+
+        if (result.intent) {
+            console.log(`  Intent: ${result.intent.displayName}`)
+
+            return {
+                isEndOfConversation,
+                intent: result.intent.displayName,
+                response: result.fulfillmentText,
+            }
+        } else {
+            console.log(`  No intent matched.`)
+
+            return {
+                response: result.fulfillmentText,
+            }
+        }
+    }
+
     private isEndOfConversation(result) {
         if (result.diagnosticInfo) {
-            console.log('end of converstaion object')
-            console.log(result.diagnosticInfo.fields.end_conversation)
             return !!result.diagnosticInfo.fields.end_conversation
         }
 
