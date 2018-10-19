@@ -13,6 +13,19 @@ export function callSendAPI(sender_psid, response) {
         message: response,
     }
 
+    sendRequest(request_body);
+}
+
+export function sendTypingAction(sender_psid) {
+    sendRequest({
+        recipient: {
+            id: sender_psid,
+        },
+        sender_action: "typing_on"
+    })
+}
+
+function sendRequest(request_body) {
     // Send the HTTP request to the Messenger Platform
     request(
         {
@@ -29,4 +42,4 @@ export function callSendAPI(sender_psid, response) {
             }
         }
     )
-}
+}   
