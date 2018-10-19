@@ -1,6 +1,6 @@
 import { callSendAPI } from '../senderService'
 import { handleQuickReply } from './quickreplyHandler'
-import AgentService from '../AgentService'
+import AgentService from '../agentService'
 import IntentHandler from './intentHandler'
 import {
     CHOOSE_SCENARIO,

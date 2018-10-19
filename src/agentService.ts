@@ -1,7 +1,5 @@
 import { Agent, MAIN_AGENT } from './consts/agents.const'
 
-console.log(MAIN_AGENT)
-
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow')
 
