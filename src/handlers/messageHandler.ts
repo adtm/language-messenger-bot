@@ -6,26 +6,26 @@ import { callSendAPI, sendTypingAction } from '../senderService'
 import IntentHandler from './intentHandler'
 import { handleQuickReply } from './quickreplyHandler'
 import { ENGLISH } from '../consts/language.const'
+import { RESET } from '../consts/intent.const';
 
 export function handleMessage(sender_psid: String, received_message: any) {
     sendTypingAction(sender_psid)
-
     let response
     const { text } = received_message
 
     if (received_message.quick_reply) {
-        console.log('payload stuff: ' + received_message.quick_reply.payload)
-
-        if (received_message.quick_reply.payload === CHOOSE_LANGUAGE) {
-            AgentService.changeLanguage(text)
-        }
-        if (received_message.quick_reply.payload === CHOOSE_SCENARIO) {
-            AgentService.changeAgent(AgentService.getAgentBasedOnScenario(text))
-            return AgentService.sendEvent().then(answer =>
-                handleAgentResponse(answer, sender_psid)
-            )
-        } else {
-            response = handleQuickReply(received_message.quick_reply, text)
+        switch (received_message.quick_reply.payload) {
+            case CHOOSE_LANGUAGE:
+                AgentService.changeLanguage(text)
+                break;
+            case CHOOSE_SCENARIO:
+                AgentService.changeAgent(AgentService.getAgentBasedOnScenario(text))
+                return AgentService.sendEvent().then(answer =>
+                    handleAgentResponse(answer, sender_psid)
+                )
+            default:
+                response = handleQuickReply(received_message.quick_reply, text)
+                break;
         }
     }
 
@@ -38,7 +38,6 @@ function handleAgentResponse(answer, sender_psid) {
     let response
 
     if (answer.isEndOfConversation) {
-        learningService.resetErrorCount()
         //First response send original answers
         response = {
             text: answer.response,
@@ -49,7 +48,7 @@ function handleAgentResponse(answer, sender_psid) {
             response = {
                 text:
                     `You'have just completed the ${
-                        AgentService.getCurrentAgent().scenarioName
+                    AgentService.getCurrentAgent().scenarioName
                     } scenario. ` +
                     `You made ${learningService.getErrorCount()} errors. ` +
                     `Say "I want to learn something else" if you want to learn another scenario`,
@@ -63,7 +62,12 @@ function handleAgentResponse(answer, sender_psid) {
     }
 
     if (answer.intent) {
-        response = IntentHandler.handleIntent(answer)
+        if (answer.intent === RESET) {
+            AgentService.changeAgent(MAIN_AGENT);
+
+        } else {
+            response = IntentHandler.handleIntent(answer)
+        }
     }
 
     if (!response) {
