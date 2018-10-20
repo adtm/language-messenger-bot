@@ -31,7 +31,22 @@ export function handleMessage(sender_psid: String, received_message: any) {
 
 function handleAgentResponse(answer, sender_psid) {
     let response;
-    if (answer.isEndOfConversation) agentService.changeAgent(MAIN_AGENT)
+    if (answer.isEndOfConversation) {
+        //First response send original answers
+        response = {
+            text: answer.response,
+        }
+        return callSendAPI(sender_psid, response).on('response', () => {
+            //Second one send a premade answer
+            response = {
+                text: `You'have just completed the ${agentService.getCurrentAgent().scenarioName} scenario. ` +
+                    `Say "I want to learn something else" if you want to learn another scenario`
+            }
+            agentService.changeAgent(MAIN_AGENT);
+
+            callSendAPI(sender_psid, response);
+        })
+    }
 
     if (answer.intent) {
         response = intentHandler.handleIntent(answer)
