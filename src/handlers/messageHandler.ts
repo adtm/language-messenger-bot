@@ -1,6 +1,6 @@
 import AgentService from '../agentService';
 import { MAIN_AGENT } from '../consts/agents.const';
-import { CHOOSE_SCENARIO } from '../consts/quick-replies.const';
+import { CHOOSE_SCENARIO, CHOOSE_LANGUAGE } from '../consts/quick-replies.const';
 import learningService from '../learningService';
 import { callSendAPI, sendTypingAction } from '../senderService';
 import IntentHandler from './intentHandler';
@@ -17,7 +17,7 @@ export function handleMessage(sender_psid: String, received_message: any) {
         console.log('payload stuff: ' + received_message.quick_reply.payload)
 
         if (received_message.quick_reply.payload === CHOOSE_LANGUAGE) {
-            agentService.changeLanguage(text)
+            AgentService.changeLanguage(text)
         }
         if (received_message.quick_reply.payload === CHOOSE_SCENARIO) {
             AgentService.changeAgent(AgentService.getAgentBasedOnScenario(text));
@@ -55,7 +55,7 @@ function handleAgentResponse(answer, sender_psid) {
     }
 
     if (answer.intent) {
-        response = IntentHandler.handleIntent(answer)
+        response = IntentHandler.handleIntent(answer);
     }
 
     if (!response) {

@@ -4,8 +4,8 @@ import {
     CHOOSE_LANGUAGE,
 } from '../consts/quick-replies.const'
 
-export default class IntentHandler {
-    constructor() {}
+class IntentHandler {
+    constructor() { }
 
     handleIntent(payload) {
         let response
@@ -42,3 +42,5 @@ export default class IntentHandler {
         }
     }
 }
+
+export default new IntentHandler();
