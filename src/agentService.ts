@@ -7,6 +7,7 @@ import {
 import { WELCOME_EVENT } from './consts/events.const'
 import { INTERVIEW_CHOISE, COFFEE_CHOISE } from './consts/quick-replies.const'
 import { ENGLISH, SPANISH, SPAIN_LANGUAGE } from './consts/language.const'
+import learningService from './learningService';
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow')
@@ -100,6 +101,8 @@ class AgentService {
     }
 
     changeAgent(agent: Agent) {
+        learningService.resetErrorCount();
+
         this.currentAgent = agent
         this.projectId = this.currentAgent.project_id
         this.sessionClient = new dialogflow.SessionsClient({
