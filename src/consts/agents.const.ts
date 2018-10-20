@@ -1,6 +1,9 @@
+import { COFFEE_CHOISE } from "./quick-replies.const";
+
 const defaultPath = `${__dirname}/credentials`
 export interface Agent {
     name
+    scenarioName?
     project_id
     secret
 }
@@ -17,6 +20,7 @@ export const INTERVIEW_AGENT: Agent = {
 }
 export const COFFEE_AGENT: Agent = {
     name: 'Coffee Shop Agent',
+    scenarioName: COFFEE_CHOISE,
     project_id: process.env.COFFEE_AGENT_PROJECT_ID,
     secret: defaultPath + '/coffee-agent-credentials.json',
 }

@@ -33,13 +33,14 @@ export default class AgentService {
     private languageCode = 'en-US'
     private sessionPath
     private sessionClient: any
+    private currentAgent: Agent = MAIN_AGENT;
 
     //TODO: Stack sessions and use them later.
     //TODO: Handle multiple users
-    constructor(agent: Agent = MAIN_AGENT) {
-        this.projectId = agent.project_id
+    constructor() {
+        this.projectId = this.currentAgent.project_id
         this.sessionClient = new dialogflow.SessionsClient({
-            keyFilename: agent.secret,
+            keyFilename: this.currentAgent.secret,
         })
         this.sessionId = Math.random()
             .toString(36)
@@ -89,9 +90,10 @@ export default class AgentService {
     }
 
     changeAgent(agent: Agent) {
-        this.projectId = agent.project_id
+        this.currentAgent = agent;
+        this.projectId = this.currentAgent.project_id
         this.sessionClient = new dialogflow.SessionsClient({
-            keyFilename: agent.secret,
+            keyFilename: this.currentAgent.secret,
         })
         this.sessionId = Math.random()
             .toString(36)
@@ -100,6 +102,10 @@ export default class AgentService {
             this.projectId,
             this.sessionId
         )
+    }
+
+    getCurrentAgent(): Agent {
+        return this.currentAgent;
     }
 
     private handleResponse(responses) {

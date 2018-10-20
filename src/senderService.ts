@@ -13,11 +13,11 @@ export function callSendAPI(sender_psid, response) {
         message: response,
     }
 
-    sendRequest(request_body);
+    return sendRequest(request_body);
 }
 
 export function sendTypingAction(sender_psid) {
-    sendRequest({
+    return sendRequest({
         recipient: {
             id: sender_psid,
         },
@@ -27,7 +27,7 @@ export function sendTypingAction(sender_psid) {
 
 function sendRequest(request_body) {
     // Send the HTTP request to the Messenger Platform
-    request(
+    return request(
         {
             uri: 'https://graph.facebook.com/v2.6/me/messages',
             qs: { access_token: PAGE_ACCESS_TOKEN },
