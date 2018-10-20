@@ -51,7 +51,7 @@ function handleAgentResponse(answer, sender_psid) {
                     AgentService.getCurrentAgent().scenarioName
                     } scenario. ` +
                     `You made ${learningService.getErrorCount()} errors. ` +
-                    `Say "I want to learn something else" if you want to learn another scenario`,
+                    `Say "Hey" if you want to start again`,
             }
 
             AgentService.changeAgent(MAIN_AGENT)
