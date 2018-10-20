@@ -1,14 +1,14 @@
-import AgentService from '../agentService';
-import { MAIN_AGENT } from '../consts/agents.const';
-import { CHOOSE_SCENARIO, CHOOSE_LANGUAGE } from '../consts/quick-replies.const';
-import learningService from '../learningService';
-import { callSendAPI, sendTypingAction } from '../senderService';
-import IntentHandler from './intentHandler';
-import { handleQuickReply } from './quickreplyHandler';
-
+import AgentService from '../agentService'
+import { MAIN_AGENT } from '../consts/agents.const'
+import { CHOOSE_SCENARIO, CHOOSE_LANGUAGE } from '../consts/quick-replies.const'
+import learningService from '../learningService'
+import { callSendAPI, sendTypingAction } from '../senderService'
+import IntentHandler from './intentHandler'
+import { handleQuickReply } from './quickreplyHandler'
+import { ENGLISH } from '../consts/language.const'
 
 export function handleMessage(sender_psid: String, received_message: any) {
-    sendTypingAction(sender_psid);
+    sendTypingAction(sender_psid)
 
     let response
     const { text } = received_message
@@ -20,21 +20,25 @@ export function handleMessage(sender_psid: String, received_message: any) {
             AgentService.changeLanguage(text)
         }
         if (received_message.quick_reply.payload === CHOOSE_SCENARIO) {
-            AgentService.changeAgent(AgentService.getAgentBasedOnScenario(text));
-            return AgentService.sendEvent().then(answer => handleAgentResponse(answer, sender_psid));
+            AgentService.changeAgent(AgentService.getAgentBasedOnScenario(text))
+            return AgentService.sendEvent().then(answer =>
+                handleAgentResponse(answer, sender_psid)
+            )
         } else {
             response = handleQuickReply(received_message.quick_reply, text)
         }
     }
 
-    AgentService.interactWithAgent(text).then(answer => handleAgentResponse(answer, sender_psid));
+    AgentService.interactWithAgent(text).then(answer =>
+        handleAgentResponse(answer, sender_psid)
+    )
 }
 
 function handleAgentResponse(answer, sender_psid) {
-    let response;
+    let response
 
     if (answer.isEndOfConversation) {
-        learningService.resetErrorCount();
+        learningService.resetErrorCount()
         //First response send original answers
         response = {
             text: answer.response,
@@ -43,19 +47,23 @@ function handleAgentResponse(answer, sender_psid) {
         return callSendAPI(sender_psid, response).on('response', () => {
             //Second one send a premade answer
             response = {
-                text: `You'have just completed the ${AgentService.getCurrentAgent().scenarioName} scenario. ` +
+                text:
+                    `You'have just completed the ${
+                        AgentService.getCurrentAgent().scenarioName
+                    } scenario. ` +
                     `You made ${learningService.getErrorCount()} errors. ` +
-                    `Say "I want to learn something else" if you want to learn another scenario`
+                    `Say "I want to learn something else" if you want to learn another scenario`,
             }
 
-            AgentService.changeAgent(MAIN_AGENT);
+            AgentService.changeAgent(MAIN_AGENT)
+            AgentService.changeLanguage(ENGLISH)
 
             callSendAPI(sender_psid, response)
         })
     }
 
     if (answer.intent) {
-        response = IntentHandler.handleIntent(answer);
+        response = IntentHandler.handleIntent(answer)
     }
 
     if (!response) {
@@ -66,5 +74,3 @@ function handleAgentResponse(answer, sender_psid) {
 
     callSendAPI(sender_psid, response)
 }
-
-
