@@ -1,4 +1,4 @@
-import { callSendAPI } from '../senderService'
+import { callSendAPI, sendTypingAction } from '../senderService'
 import { handleQuickReply } from './quickreplyHandler'
 import AgentService from '../agentService'
 import IntentHandler from './intentHandler'
@@ -13,6 +13,7 @@ const agentService = new AgentService();
 const intentHandler = new IntentHandler();
 
 export function handleMessage(sender_psid: String, received_message: any) {
+    sendTypingAction(sender_psid);
     let response
     const { text } = received_message
 
