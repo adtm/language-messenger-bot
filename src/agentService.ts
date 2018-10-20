@@ -1,5 +1,6 @@
-import { Agent, MAIN_AGENT } from './consts/agents.const'
-import { WELCOME_EVENT } from './consts/events.const'
+import { Agent, MAIN_AGENT, INTERVIEW_AGENT, COFFEE_AGENT } from './consts/agents.const';
+import { WELCOME_EVENT } from './consts/events.const';
+import { INTERVIEW_CHOISE, COFFEE_CHOISE } from './consts/quick-replies.const';
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow')
@@ -27,7 +28,7 @@ interface EventRequest extends Request {
     }
 }
 
-export default class AgentService {
+class AgentService {
     private projectId: string
     private sessionId: string
     private languageCode = 'en-US'
@@ -123,6 +124,7 @@ export default class AgentService {
             return {
                 isEndOfConversation,
                 intent: result.intent.displayName,
+                parameters: result.parameters,
                 response: result.fulfillmentText,
             }
         } else {
@@ -134,6 +136,19 @@ export default class AgentService {
         }
     }
 
+    getAgentBasedOnScenario(scenario: string): Agent {
+        switch (scenario) {
+            case INTERVIEW_CHOISE:
+                return INTERVIEW_AGENT
+            case COFFEE_CHOISE:
+                return COFFEE_AGENT
+            default:
+                return MAIN_AGENT
+        }
+    }
+
+
+
     private isEndOfConversation(result) {
         if (result.diagnosticInfo) {
             return !!result.diagnosticInfo.fields.end_conversation
@@ -142,3 +157,5 @@ export default class AgentService {
         return false
     }
 }
+
+export default new AgentService();
