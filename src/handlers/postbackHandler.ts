@@ -7,7 +7,9 @@ export function handlePostback(sender_psid, received_postback) {
     let payload = received_postback.payload
 
     // Set the response based on the postback payload
-    if (payload === 'yes') {
+    if (payload.toLowerCase() === 'start') {
+        response = { text: 'Write anything to get started!' }
+    } else if (payload === 'yes') {
         response = { text: 'Thanks!' }
     } else if (payload === 'no') {
         response = { text: 'Oops, try sending another image.' }

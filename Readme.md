@@ -1,10 +1,9 @@
 ### Local development
 
-- Download ngrok: https://ngrok.com/ or `brew`
-- Run `npm start / npm run dev` and on an other terminal: `ngrok http 1337` (port)
+-   Download ngrok: https://ngrok.com/ or `brew`
+-   Run `npm start / npm run dev` and on an other terminal: `ngrok http 1337` (port)
 
-- Now paste this link to the Messenger Development platform
-
+-   Now paste this link to the Messenger Development platform
 
 Heroku link: https://messenger-weboock.herokuapp.com/webhook
 Verification token: random123
@@ -19,47 +18,62 @@ To enable NLP in Facebook, you must go to Facebook Developer page and to "Messen
 
 If wanted, you can enable "Advanced Settings":
 
-
 NLP result example:
 
 ```json
 {
-  "entities": {
-    "datetime": [
-      {
-        "confidence": 0.96494166666667,
-        "values": [
-          {
-            "value": "2018-07-05T16:00:00.000+03:00",
-            "grain": "hour",
-            "type": "value"
-          }
+    "entities": {
+        "datetime": [
+            {
+                "confidence": 0.96494166666667,
+                "values": [
+                    {
+                        "value": "2018-07-05T16:00:00.000+03:00",
+                        "grain": "hour",
+                        "type": "value"
+                    }
+                ],
+                "value": "2018-07-05T16:00:00.000+03:00",
+                "grain": "hour",
+                "type": "value"
+            }
         ],
-        "value": "2018-07-05T16:00:00.000+03:00",
-        "grain": "hour",
-        "type": "value"
-      }
-    ],
-    "sentiment": [
-      {
-        "confidence": 0.59301154950735,
-        "value": "neutral"
-      }
-    ],
-    "bye": [
-      {
-        "confidence": 0.61518204777792,
-        "value": "true"
-      }
-    ],
-    "greetings": [
-      {
-        "confidence": 0.78910905105147,
-        "value": "true"
-      }
-    ]
-  }
+        "sentiment": [
+            {
+                "confidence": 0.59301154950735,
+                "value": "neutral"
+            }
+        ],
+        "bye": [
+            {
+                "confidence": 0.61518204777792,
+                "value": "true"
+            }
+        ],
+        "greetings": [
+            {
+                "confidence": 0.78910905105147,
+                "value": "true"
+            }
+        ]
+    }
 }
 ```
 
 for more NLP result parameters: https://developers.facebook.com/docs/messenger-platform/built-in-nlp
+
+---
+
+## To add a "Get Started" button
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type": "call_to_actions",
+  "thread_state": "new_thread",
+  "call_to_actions": [
+    {
+      "payload": "Start"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=<PAGE ACCESS TOKEN>"
+```
