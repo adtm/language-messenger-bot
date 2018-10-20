@@ -33,7 +33,7 @@ export default class AgentService {
     private languageCode = 'en-US'
     private sessionPath
     private sessionClient: any
-    private currentAgent: Agent = MAIN_AGENT;
+    private currentAgent: Agent = MAIN_AGENT
 
     //TODO: Stack sessions and use them later.
     //TODO: Handle multiple users
@@ -90,7 +90,7 @@ export default class AgentService {
     }
 
     changeAgent(agent: Agent) {
-        this.currentAgent = agent;
+        this.currentAgent = agent
         this.projectId = this.currentAgent.project_id
         this.sessionClient = new dialogflow.SessionsClient({
             keyFilename: this.currentAgent.secret,
@@ -104,8 +104,12 @@ export default class AgentService {
         )
     }
 
+    changeLanguage(language) {
+        if (language.toLowerCase() === 'spanish') this.languageCode = 'es'
+    }
+
     getCurrentAgent(): Agent {
-        return this.currentAgent;
+        return this.currentAgent
     }
 
     private handleResponse(responses) {
