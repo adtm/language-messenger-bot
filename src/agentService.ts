@@ -57,6 +57,8 @@ class AgentService {
             this.projectId,
             this.sessionId
         )
+
+        this.sendEvent()
     }
 
     interactWithAgent(requestText) {
