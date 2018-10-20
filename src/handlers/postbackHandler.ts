@@ -6,6 +6,8 @@ export function handlePostback(sender_psid, received_postback) {
     // Get the payload for the postback
     let payload = received_postback.payload
 
+    console.log('payloader' + payload)
+
     // Set the response based on the postback payload
     if (payload.toLowerCase() === 'start') {
         response = { text: 'Write anything to get started!' }
