@@ -1,18 +1,18 @@
 import { Agent, MAIN_AGENT } from './consts/agents.const'
-import { WELCOME_EVENT } from './consts/events.const';
+import { WELCOME_EVENT } from './consts/events.const'
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
 const dialogflow = require('dialogflow')
 
 interface Request {
-    session: any,
+    session: any
     queryInput
 }
 
 interface TextRequest extends Request {
     queryInput: {
         text: {
-            text: string,
+            text: string
             languageCode
         }
     }
@@ -21,12 +21,11 @@ interface TextRequest extends Request {
 interface EventRequest extends Request {
     queryInput: {
         event: {
-            name: string,
+            name: string
             languageCode
         }
     }
 }
-
 
 export default class AgentService {
     private projectId: string
@@ -79,7 +78,7 @@ export default class AgentService {
                     languageCode: this.languageCode,
                 },
             },
-        };
+        }
 
         return this.sessionClient
             .detectIntent(request)
