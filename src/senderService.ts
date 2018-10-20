@@ -1,6 +1,4 @@
 import request from 'request'
-import dotenv from 'dotenv'
-dotenv.config()
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 // Sends response messages via the Send API
@@ -13,7 +11,7 @@ export function callSendAPI(sender_psid, response) {
         message: response,
     }
 
-    return sendRequest(request_body);
+    return sendRequest(request_body)
 }
 
 export function sendTypingAction(sender_psid) {
@@ -21,7 +19,7 @@ export function sendTypingAction(sender_psid) {
         recipient: {
             id: sender_psid,
         },
-        sender_action: "typing_on"
+        sender_action: 'typing_on',
     })
 }
 
@@ -42,4 +40,4 @@ function sendRequest(request_body) {
             }
         }
     )
-}   
+}

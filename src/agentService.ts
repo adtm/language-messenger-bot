@@ -46,6 +46,7 @@ class AgentService {
         this.sessionId = Math.random()
             .toString(36)
             .substring(7)
+
         this.sessionPath = this.sessionClient.sessionPath(
             this.projectId,
             this.sessionId

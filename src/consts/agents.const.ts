@@ -1,4 +1,4 @@
-import { COFFEE_CHOISE } from "./quick-replies.const";
+import { COFFEE_CHOISE } from './quick-replies.const'
 
 const defaultPath = `${__dirname}/credentials`
 export interface Agent {
