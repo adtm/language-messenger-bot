@@ -17,6 +17,7 @@ export function handleMessage(sender_psid: String, received_message: any) {
         switch (received_message.quick_reply.payload) {
             case CHOOSE_LANGUAGE:
                 AgentService.changeLanguage(text)
+                AgentService.changeLanguage(text)
                 break;
             case CHOOSE_SCENARIO:
                 AgentService.changeAgent(AgentService.getAgentBasedOnScenario(text))

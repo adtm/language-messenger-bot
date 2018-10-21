@@ -6,7 +6,7 @@ import {
 } from './consts/agents.const'
 import { WELCOME_EVENT } from './consts/events.const'
 import { INTERVIEW_CHOISE, COFFEE_CHOISE } from './consts/quick-replies.const'
-import { ENGLISH, SPANISH, SPAIN_LANGUAGE } from './consts/language.const'
+import { ENGLISH, SPANISH, SPAIN_LANGUAGE, ENGLISH_LANGUAGE } from './consts/language.const'
 import learningService from './learningService';
 
 //TODO: Convert to import - currently errors cause SessionClient() cannot accept strings;
@@ -120,6 +120,8 @@ class AgentService {
     changeLanguage(language) {
         if (language.toLowerCase() === SPAIN_LANGUAGE)
             this.languageCode = SPANISH
+        if (language.toLowerCase() === ENGLISH_LANGUAGE)
+            this.languageCode = ENGLISH
     }
 
     getCurrentAgent(): Agent {
