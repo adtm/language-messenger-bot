@@ -29,6 +29,14 @@ export function handleMessage(sender_psid: String, received_message: any) {
         }
     }
 
+    if (text === 'Reset') {
+        AgentService.changeAgent(MAIN_AGENT);
+        AgentService.changeLanguage(ENGLISH);
+        return AgentService.sendEvent().then(answer =>
+            handleAgentResponse(answer, sender_psid)
+        )
+    }
+
     AgentService.interactWithAgent(text).then(answer =>
         handleAgentResponse(answer, sender_psid)
     )
