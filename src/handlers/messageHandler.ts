@@ -58,10 +58,12 @@ function handleAgentResponse(answer, sender_psid) {
             //Second one send a premade answer
             response = {
                 text:
-                    `You have just completed the "${AgentService.getCurrentAgent().scenarioName[0].toUpperCase() +
-                        AgentService.getCurrentAgent().scenarioName.splice(
-                            1
-                        )}" scenario.` +
+                    `You have just completed the "${AgentService.getCurrentAgent()
+                        .scenarioName.toString()[0]
+                        .toUpperCase() +
+                        AgentService.getCurrentAgent()
+                            .scenarioName.toString()
+                            .slice(1)}" scenario!\n` +
                     `I didn't understand you ${errorCount} ${
                         errorCount == 1 ? 'time' : 'times'
                     }. \n` +
