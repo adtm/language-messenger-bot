@@ -58,13 +58,14 @@ function handleAgentResponse(answer, sender_psid) {
             //Second one send a premade answer
             response = {
                 text:
-                    `You'have just completed the ${
-                        AgentService.getCurrentAgent().scenarioName
-                    } scenario. ` +
-                    ` I didn't understand you ${errorCount} ${
+                    `You have just completed the "${AgentService.getCurrentAgent().scenarioName[0].toUpperCase() +
+                        AgentService.getCurrentAgent().scenarioName.splice(
+                            1
+                        )}" scenario.` +
+                    `I didn't understand you ${errorCount} ${
                         errorCount == 1 ? 'time' : 'times'
                     }. \n` +
-                    `Say "Hey" if you want to start again`,
+                    `Say "Hey" if you want to start again!`,
             }
 
             AgentService.changeAgent(MAIN_AGENT)
