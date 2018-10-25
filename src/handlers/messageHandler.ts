@@ -63,7 +63,7 @@ function handleAgentResponse(answer, sender_psid) {
                     } scenario. ` +
                     ` I didn't understand you ${errorCount} ${
                         errorCount == 1 ? 'time' : 'times'
-                    }` +
+                    }. \n` +
                     `Say "Hey" if you want to start again`,
             }
 
