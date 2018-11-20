@@ -1,6 +1,6 @@
 import { COFFEE_CHOISE } from './quick-replies.const'
 
-const defaultPath = `${__dirname}/credentials`
+const defaultPath = `../../secrets`
 export interface Agent {
     name
     scenarioName?
