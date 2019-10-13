@@ -73,9 +73,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/dialogflow@^0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@types/dialogflow/-/dialogflow-0.6.3.tgz#4993ac2a3eead787c3b3a29002c2db181509f412"
+"@types/dialogflow@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@types/dialogflow/-/dialogflow-0.11.0.tgz#a9b803b29a9ad1c54762c5186edbceade870a336"
 
 "@types/dotenv@^4.0.2":
   version "4.0.3"
