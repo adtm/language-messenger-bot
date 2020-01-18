@@ -30,7 +30,7 @@
         "express": "^4.17.1",
         "mocha": "^5.2.0",
         "request": "^2.72.0",
-        "ts-node": "^8.5.4",
+        "ts-node": "^8.6.0",
         "typescript": "^3.6.4"
     }
 }
